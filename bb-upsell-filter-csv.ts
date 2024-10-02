@@ -34,6 +34,8 @@ const processCsv = (inputFilePath: string, outputFilePath: string) => {
         recordingId: data.recordingId,
         conversationStart: data.conversationStart,
         insights: data.insights,
+        customerNumber: data.customerNumber,
+        wrapUp: data.wrapUp,
       };
 
       // Parse the insights column and add the individual properties as new columns
@@ -53,7 +55,7 @@ const processCsv = (inputFilePath: string, outputFilePath: string) => {
     })
     .on('end', () => {
       // Determine the fields for the new CSV file
-      const fields = ['conversationId', 'recordingId', 'conversationStart', ...Object.keys(rows[0] || {}).filter(key => key !== 'conversationId' && key !== 'recordingId' && key !== 'conversationStart' && key !== 'insights')];
+      const fields = ['conversationId', 'recordingId', 'conversationStart', 'customerNumber', 'wrapUp', ...Object.keys(rows[0] || {}).filter(key => key !== 'conversationId' && key !== 'recordingId' && key !== 'conversationStart' && key !== 'customerNumber' && key !== 'wrapUp' && key !== 'insights')];
 
       // Convert the rows to CSV format
       const csvData = json2csv(rows, { fields });
